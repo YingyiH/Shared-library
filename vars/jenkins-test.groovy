@@ -1,4 +1,7 @@
-pipeline {
+// Named it "call" to call it by default
+
+def call {
+    pipeline {
     agent any
     
     stages {
@@ -27,4 +30,5 @@ pipeline {
         }
 
     }
+}
 }
