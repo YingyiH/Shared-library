@@ -1,6 +1,6 @@
 // Named it "call" to call it by default
 
-def call {
+def call() {
     pipeline {
     agent any
     
