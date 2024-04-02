@@ -23,8 +23,6 @@ def call(path, imageName) {
                         // Python package upgrade
                         sh 'pip install --upgrade pip'
                         sh 'pip install --upgrade flask'
-                        // Python lint installation
-                        sh 'pip install pylint'
                     }
                 }
             }
@@ -34,6 +32,8 @@ def call(path, imageName) {
                     script {
                         // Get in Python virtual environment
                         sh '. venv/bin/activate'
+                        // Python lint installation
+                        sh 'pip install pylint'
                         // Set up pylint minimum score
                         sh 'pylint --fail-under=5'
                     }
@@ -45,6 +45,8 @@ def call(path, imageName) {
                     script{
                         // Get in Python virtual environment
                         sh '. venv/bin/activate'
+                        // Install Bandit
+                        sh 'pip install bandit'
                         // Runs Bandit to perform security analysis on the code.
                         sh 'bandit -r ./${path}'
                     }
