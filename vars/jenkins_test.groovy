@@ -68,8 +68,8 @@ def call(dockerRepoName, path, imageName) {
                             sh "docker login -u 'yingyi123' -p '$TOKEN' docker.io"
                             // Build and push image for service
                             sh """
-                                docker build -t ${dockerRepoName}:latest --tag yingyi123/${dockerRepoName}:${imageName} .
-                                docker push yingyi123/${dockerRepoName}:${imageName}
+                                docker build -t ${dockerRepoName}:latest --tag yingyi123/${path}:${imageName} .
+                                docker push yingyi123/${path}:${imageName}
                             """
                         }
                     }  
