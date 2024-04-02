@@ -87,11 +87,11 @@ def call(dockerRepoName, path, imageName) {
                         sshagent(credentials : ['ssh-key']) {
                             // Executes a series of Docker commands on a remote server via SSH. It pulls, and then 
                             // rebuilds the Docker containers specified in the 'docker-compose.yml' file located in 
-                            // the '/deployment' directory.
-                            sh "pwd"
-                            sh """
-                                ssh -t -t doridori@34.106.187.98 -o StrictHostKeyChecking=no "cd ./deployment && docker compose stop && docker compose rm -f && docker compose pull && docker compose up -d"
-                            """
+                            // the 'deployment' directory.
+                            dir('deployment'){
+                                sh 'ssh -t -t doridori@34.106.187.98 -o StrictHostKeyChecking=no "docker compose stop && docker compose rm -f && docker compose pull && docker compose up --build -d"'
+                            }
+                            // sh 'ssh -t -t doridori@34.106.187.98 -o StrictHostKeyChecking=no "cd ./deployment && docker compose stop && docker compose rm -f && docker compose pull && docker compose up --build -d"'
                             // The -o option disables the prompt that asks for confirmation when connecting to a host 
                             // for the first time. This is useful for automation scripts but can be insecure because it 
                             // makes it vulnerable to man-in-the-middle attacks
