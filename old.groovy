@@ -4,7 +4,9 @@ def call(path, imageName) {
     pipeline {
         //Starts defining a Jenkins pipeline and sets it to run on any available agent
         agent any 
-
+        environment {
+            PATH = "/var/lib/jenkins/.local/bin:$PATH"
+        }
         // Add a boolean parameter to enable/disable the Delivery stage of the pipeline. 
         // This should go between the agent and stages keywords.
         parameters {
@@ -16,17 +18,11 @@ def call(path, imageName) {
                 steps {
                     script {
                         // Python virtual environment set up
-                        sh '''
-                            python3 -m venv venv
-                            . venv/bin/activate
-                        '''
+                        sh 'python3 -m venv venv'
+                        sh '. venv/bin/activate'
                         // Python package upgrade
-                        sh '''
-                            pip install --upgrade pip
-                            pip install --upgrade flask
-                        '''
-                        // Python lint installation
-                        sh 'pip install pylint'
+                        sh 'pip install --upgrade pip'
+                        sh 'pip install --upgrade flask'
                     }
                 }
             }
@@ -36,6 +32,8 @@ def call(path, imageName) {
                     script {
                         // Get in Python virtual environment
                         sh '. venv/bin/activate'
+                        // Python lint installation
+                        sh 'pip install pylint'
                         // Set up pylint minimum score
                         sh 'pylint --fail-under=5'
                     }
@@ -47,6 +45,8 @@ def call(path, imageName) {
                     script{
                         // Get in Python virtual environment
                         sh '. venv/bin/activate'
+                        // Install Bandit
+                        sh 'pip install bandit'
                         // Runs Bandit to perform security analysis on the code.
                         sh 'bandit -r ./${path}'
                     }
@@ -113,4 +113,3 @@ def call(path, imageName) {
         }
     }
 }
-
