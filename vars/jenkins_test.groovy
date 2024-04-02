@@ -25,6 +25,9 @@ def call(dockerRepoName, path, imageName) {
                         // Python package upgrade
                         sh "pip install --upgrade pip"
                         sh "pip install --upgrade flask"
+                        // Python lint and Bandit installation
+                        sh "pip install pylint"
+                        sh "pip install bandit"
                     }
                 }
             }
@@ -34,8 +37,6 @@ def call(dockerRepoName, path, imageName) {
                     script {
                         // Get in Python virtual environment
                         sh ". venv/bin/activate"
-                        // Python lint installation
-                        sh "pip install pylint"
                         // Set up pylint minimum score
                         sh "pylint --fail-under=5 --disable import-error ./${path}/*.py"
                     }
@@ -47,8 +48,6 @@ def call(dockerRepoName, path, imageName) {
                     script{
                         // Get in Python virtual environment
                         sh ". venv/bin/activate"
-                        // Install Bandit
-                        sh "pip install bandit"
                         // Runs Bandit to perform security analysis on the code.
                         sh "bandit -r ./${path}"
                     }
@@ -81,21 +80,21 @@ def call(dockerRepoName, path, imageName) {
                     expression { params.DEPLOY }
                 }
                 steps {
-                    // script {
+                    script {
                         // Starts an SSH agent, allowing SSH commands to be executed securely within the pipeline 
                         // using the specified SSH key credentials.
-                    sshagent(credentials : ['ssh-key']) {
-                        // Executes a series of Docker commands on a remote server via SSH. It pulls, and then 
-                        // rebuilds the Docker containers specified in the 'docker-compose.yml' file located in 
-                        // the 'deployment' directory.
-                        sh """
-                        ssh -t -t doridori@35.235.112.242 -o StrictHostKeyChecking=no "cd ./BESTIE-Commerce-API/deployment && docker pull yingyi123/${dockerRepoName}:${imageName} && docker compose up -d"
-                        """
+                        sshagent(credentials : ['ssh-key']) {
+                            // Executes a series of Docker commands on a remote server via SSH. It pulls, and then 
+                            // rebuilds the Docker containers specified in the 'docker-compose.yml' file located in 
+                            // the 'deployment' directory.
+                            sh """
+                            ssh -t -t doridori@35.235.112.242 -o StrictHostKeyChecking=no "cd ./BESTIE-Commerce-API/deployment && docker pull yingyi123/${dockerRepoName}:${imageName} && docker compose up yingyi123/${dockerRepoName}:${imageName} -d"
+                            """
                             // The -o option disables the prompt that asks for confirmation when connecting to a host 
                             // for the first time. This is useful for automation scripts but can be insecure because it 
                             // makes it vulnerable to man-in-the-middle attacks
                         }
-                    // }
+                    }
                 }
                 // Reference of clean up: https://www.jenkins.io/doc/pipeline/tour/post/
                 post {
