@@ -18,13 +18,13 @@ def call(path, imageName) {
             stage('Environment Set up'){
                 steps {
                     script {
-                        sh 'rm -rf venv'
+                        sh "rm -rf venv"
                         // Python virtual environment set up
-                        sh 'python3 -m venv venv'
-                        sh '. venv/bin/activate'
+                        sh "python3 -m venv venv"
+                        sh ". venv/bin/activate"
                         // Python package upgrade
-                        sh 'pip install --upgrade pip'
-                        sh 'pip install --upgrade flask'
+                        sh "pip install --upgrade pip"
+                        sh "pip install --upgrade flask"
                     }
                 }
             }
@@ -33,9 +33,9 @@ def call(path, imageName) {
                 steps {
                     script {
                         // Get in Python virtual environment
-                        sh '. venv/bin/activate'
+                        sh ". venv/bin/activate"
                         // Python lint installation
-                        sh 'pip install pylint'
+                        sh "pip install pylint"
                         // Set up pylint minimum score
                         sh "pylint --fail-under=5 --disable import-error ./${path}/*.py"
                     }
@@ -46,11 +46,11 @@ def call(path, imageName) {
                 steps {
                     script{
                         // Get in Python virtual environment
-                        sh '. venv/bin/activate'
+                        sh ". venv/bin/activate"
                         // Install Bandit
-                        sh 'pip install bandit'
+                        sh "pip install bandit"
                         // Runs Bandit to perform security analysis on the code.
-                        sh 'bandit -r ./${path}'
+                        sh "bandit -r ./${path}"
                     }
                 }
             }
@@ -64,13 +64,13 @@ def call(path, imageName) {
                     // Inject credentials securely into the pipeline
                     withCredentials([string(credentialsId: 'Dockerhub', variable: 'TOKEN')]) {
                         script {
-                            sh 'cd ${path}'
+                            sh "cd ${path}"
                             sh "docker login -u 'yingyi123' -p '$TOKEN' docker.io"
                             // Build and push image for service
-                            sh '''
+                            sh """
                                 docker build -t ${path}:latest --tag yingyi123/${path}:${imageName} .
                                 docker push yingyi/${path}:${imageName}
-                            '''
+                            """
                         }
                     }    
                 }
@@ -89,13 +89,13 @@ def call(path, imageName) {
                             // Executes a series of Docker commands on a remote server via SSH. It pulls, and then 
                             // rebuilds the Docker containers specified in the 'docker-compose.yml' file located in 
                             // the '/deployment' directory.
-                            sh '''
+                            sh """
                                 sh 'ssh -t -t yhe@34.106.187.98 -o StrictHostKeyChecking=no "cd /deployment"'
                                 sh 'ssh -t -t yhe@34.106.187.98 -o StrictHostKeyChecking=no "docker compose stop"'
                                 sh 'ssh -t -t yhe@34.106.187.98 -o StrictHostKeyChecking=no "docker compose rm -f"'
                                 sh 'ssh -t -t yhe@34.106.187.98 -o StrictHostKeyChecking=no "docker compose pull"'
                                 sh 'ssh -t -t yhe@34.106.187.98 -o StrictHostKeyChecking=no "docker compose up --build -d"'
-                            '''
+                            """
                         }
                     }
                 }
@@ -108,7 +108,7 @@ def call(path, imageName) {
                     }
                     script {
                         // Clean up Python virtual environment
-                        sh 'rm -rf venv'
+                        sh "rm -rf venv"
                     }
                 }
             }
