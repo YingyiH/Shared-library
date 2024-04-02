@@ -101,12 +101,10 @@ def call(dockerRepoName, path, imageName) {
                     }
                 }
             }
-
-            stage ('Clean up') {
-                steps {
-                    when {
-                        always()
-                    }
+            
+            // Reference of clean up: https://www.jenkins.io/doc/pipeline/tour/post/
+            post {
+                always {
                     script {
                         // Clean up Python virtual environment
                         sh "rm -rf venv"
