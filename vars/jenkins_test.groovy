@@ -13,8 +13,7 @@ def call(dir, imageName) {
                 steps {
                     script {
                         sh """
-                            ls
-                            . venv/bin/activate
+                            source venv/bin/activate
                             pip install pylint
                             pip install --upgrade pip
                             pip install --upgrade flask
