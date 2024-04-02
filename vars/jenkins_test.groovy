@@ -18,8 +18,8 @@ def call(path, imageName) {
                 steps {
                     script {
                         // Python virtual environment set up
-                        sh 'pwd'
-                        sh 'python3 -m venv venv'
+                        sh 'python3 -m venv ./venv'
+                        sh 'ls'
                         sh '. venv/bin/activate'
                         // Python package upgrade
                         sh 'pip install --upgrade pip'
