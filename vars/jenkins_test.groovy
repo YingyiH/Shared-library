@@ -82,7 +82,7 @@ def call(dockerRepoName, path, imageName) {
                 }
                 steps {
                     script {
-                        sh "pwd && $CURRENT_PATH=$(pwd)"
+                        sh "pwd && $CURRENT_PATH=$PWD"
                     }
                     script {
                         // Starts an SSH agent, allowing SSH commands to be executed securely within the pipeline 
