@@ -1,6 +1,6 @@
 // Named it "call" to call it by default
 
-def call(path, imageName) {
+def call(dockerRepoName, path, imageName) {
     pipeline {
         //Starts defining a Jenkins pipeline and sets it to run on any available agent
         agent any 
@@ -67,8 +67,8 @@ def call(path, imageName) {
                             sh "docker login -u 'yingyi123' -p '$TOKEN' docker.io"
                             // Build and push image for service
                             sh """
-                                docker build -t ${path}:latest --tag yingyi123/${path}:${imageName} .
-                                docker push yingyi123/${path}:${imageName}
+                                docker build -t ${dockerRepoName}:latest --tag yingyi123/${dockerRepoName}:${imageName} .
+                                docker push yingyi123/${dockerRepoName}:${imageName}
                             """
                         }
                     }  
