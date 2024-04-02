@@ -56,9 +56,9 @@ def call(path, imageName) {
             }
             
             stage('Package') {
-                when {
-                    expression { env.GIT_BRANCH == 'origin/main' }
-                }
+                // when {
+                //     expression {env.GIT_BRANCH == 'origin/main'}
+                // }
                 steps {
                     // Inject credentials securely into the pipeline
                     withCredentials([string(credentialsId: 'Dockerhub', variable: 'TOKEN')]) {
