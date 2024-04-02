@@ -4,14 +4,14 @@ def call(path, imageName) {
     pipeline {
         //Starts defining a Jenkins pipeline and sets it to run on any available agent
         agent any 
-        // environment {
-        //     PATH = "/var/lib/jenkins/.local/bin:$PATH"
-        // }
-        // // Add a boolean parameter to enable/disable the Delivery stage of the pipeline. 
-        // // This should go between the agent and stages keywords.
-        // parameters {
-        //     booleanParam(defaultValue: false, description: 'Deploy the App', name: 'DEPLOY')
-        // }
+        environment {
+            PATH = "/var/lib/jenkins/.local/bin:$PATH"
+        }
+        // Add a boolean parameter to enable/disable the Delivery stage of the pipeline. 
+        // This should go between the agent and stages keywords.
+        parameters {
+            booleanParam(defaultValue: false, description: 'Deploy the App', name: 'DEPLOY')
+        }
         
         stages {
 
@@ -23,8 +23,8 @@ def call(path, imageName) {
                         sh 'python3 -m venv venv'
                         sh '. venv/bin/activate'
                         // Python package upgrade
-                        sh 'pip3 install --upgrade pip'
-                        sh 'pip3 install --upgrade flask'
+                        sh 'pip install --upgrade pip'
+                        sh 'pip install --upgrade flask'
                     }
                 }
             }
