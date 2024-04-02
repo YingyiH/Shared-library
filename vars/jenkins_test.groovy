@@ -18,9 +18,10 @@ def call(path, imageName) {
             stage('Environment Set up'){
                 steps {
                     script {
+                        sh 'pwd'
                         // Python virtual environment set up
-                        // sh 'python3 -m venv venv'
-                        sh '. venv/bin/activate'
+                        sh 'python3 -m venv venv'
+                        sh 'source venv/bin/activate'
                         // Python package upgrade
                         sh 'pip install --upgrade pip'
                         sh 'pip install --upgrade flask'
