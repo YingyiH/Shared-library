@@ -90,7 +90,7 @@ def call(path, imageName) {
                             // rebuilds the Docker containers specified in the 'docker-compose.yml' file located in 
                             // the '/deployment' directory.
                             sh """
-                                ssh -t -t doridori@34.106.187.98 -o StrictHostKeyChecking=no "cd deployment/ && docker compose stop && docker compose rm -f && docker compose pull && docker compose up --build -d"
+                                ssh -t -t doridori@34.106.187.98 -o StrictHostKeyChecking=no "cd ./deployment/ && docker compose stop && docker compose rm -f && docker compose pull && docker compose up --build -d"
 
                             """
                             // The -o option disables the prompt that asks for confirmation when connecting to a host 
