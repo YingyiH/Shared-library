@@ -13,7 +13,7 @@ def call(dir, imageName) {
                 steps {
                     script {
                         sh """
-                            python3 -m venv venv
+                            ls
                             . venv/bin/activate
                             pip install pylint
                             pip install --upgrade pip
