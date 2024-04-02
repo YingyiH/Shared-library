@@ -93,11 +93,11 @@ def call(path, imageName) {
                             // rebuilds the Docker containers specified in the 'docker-compose.yml' file located in 
                             // the '/deployment' directory.
                             sh """
-                                sh 'ssh -t -t doridori@34.106.187.98 -o StrictHostKeyChecking=no "cd ./BESTIE-COMMERCE/deployment"'
-                                sh 'ssh -t -t doridori@34.106.187.98 -o StrictHostKeyChecking=no "docker compose stop"'
-                                sh 'ssh -t -t doridori@34.106.187.98 -o StrictHostKeyChecking=no "docker compose rm -f"'
-                                sh 'ssh -t -t doridori@34.106.187.98 -o StrictHostKeyChecking=no "docker compose pull"'
-                                sh 'ssh -t -t doridori@34.106.187.98 -o StrictHostKeyChecking=no "docker compose up --build -d"'
+                                ssh -t -t doridori@34.106.187.98 -o StrictHostKeyChecking=no "cd ./BESTIE-COMMERCE/deployment"
+                                ssh -t -t doridori@34.106.187.98 -o StrictHostKeyChecking=no "docker compose stop"
+                                ssh -t -t doridori@34.106.187.98 -o StrictHostKeyChecking=no "docker compose rm -f"
+                                ssh -t -t doridori@34.106.187.98 -o StrictHostKeyChecking=no "docker compose pull"
+                                ssh -t -t doridori@34.106.187.98 -o StrictHostKeyChecking=no "docker compose up --build -d"
                             """
                         }
                     }
