@@ -82,10 +82,10 @@ def call(dockerRepoName, path, imageName) {
                 }
                 steps {
                     script {
-                        sh "CURRENT_PATH=$(pwd)"
                         // Starts an SSH agent, allowing SSH commands to be executed securely within the pipeline 
                         // using the specified SSH key credentials.
                         sshagent(credentials : ['ssh-key']) {
+                            sh "CURRENT_PATH=$(pwd)"
                             // Executes a series of Docker commands on a remote server via SSH. It pulls, and then 
                             // rebuilds the Docker containers specified in the 'docker-compose.yml' file located in 
                             // the '/deployment' directory.
