@@ -5,7 +5,7 @@ def call(path, imageName) {
         //Starts defining a Jenkins pipeline and sets it to run on any available agent
         agent any 
         environment {
-            PATH = "/var/lib/jenkins/workspace/API-Processing/venv/bin:$PATH"
+            PATH = "/var/lib/jenkins/.local/bin:$PATH"
         }
         // Add a boolean parameter to enable/disable the Delivery stage of the pipeline. 
         // This should go between the agent and stages keywords.
@@ -18,15 +18,11 @@ def call(path, imageName) {
                 steps {
                     script {
                         // Python virtual environment set up
-                        sh '''
-                            python3 -m venv venv
-                            . venv/bin/activate
-                        '''
+                        sh 'python3 -m venv venv'
+                        sh '. venv/bin/activate'
                         // Python package upgrade
-                        sh '''
-                            pip install --upgrade pip
-                            pip install --upgrade flask
-                        '''
+                        sh 'pip install --upgrade pip'
+                        sh 'pip install --upgrade flask'
                         // Python lint installation
                         sh 'pip install pylint'
                     }
