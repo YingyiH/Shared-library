@@ -81,21 +81,21 @@ def call(dockerRepoName, path, imageName) {
                     expression { params.DEPLOY }
                 }
                 steps {
-                    script {
+                    // script {
                         // Starts an SSH agent, allowing SSH commands to be executed securely within the pipeline 
                         // using the specified SSH key credentials.
-                        sshagent(credentials : ['ssh-key']) {
-                            // Executes a series of Docker commands on a remote server via SSH. It pulls, and then 
-                            // rebuilds the Docker containers specified in the 'docker-compose.yml' file located in 
-                            // the 'deployment' directory.
-                            sh """
-                            ssh -t -t doridori@35.235.112.242 -o StrictHostKeyChecking=no "cd ./BESTIE-Commerce-API/deployment && docker pull yingyi123/${dockerRepoName}:${imageName} && docker compose up -d"
-                            """
+                    sshagent(credentials : ['ssh-key']) {
+                        // Executes a series of Docker commands on a remote server via SSH. It pulls, and then 
+                        // rebuilds the Docker containers specified in the 'docker-compose.yml' file located in 
+                        // the 'deployment' directory.
+                        sh """
+                        ssh -t -t doridori@35.235.112.242 -o StrictHostKeyChecking=no "cd ./BESTIE-Commerce-API/deployment && docker pull yingyi123/${dockerRepoName}:${imageName} && docker compose up -d"
+                        """
                             // The -o option disables the prompt that asks for confirmation when connecting to a host 
                             // for the first time. This is useful for automation scripts but can be insecure because it 
                             // makes it vulnerable to man-in-the-middle attacks
                         }
-                    }
+                    // }
                 }
                 // Reference of clean up: https://www.jenkins.io/doc/pipeline/tour/post/
                 post {
