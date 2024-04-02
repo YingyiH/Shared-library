@@ -38,37 +38,37 @@ def call(path, imageName) {
                 }
             }
             
-            stage('Package') {
-                when {
-                    expression { env.GIT_BRANCH == 'origin/main' }
-                }
-                steps {
-                    withCredentials([string(credentialsId: 'Dockerhub', variable: 'TOKEN')]) {
-                        script {
-                            sh "cd ${path} && docker login -u 'yingyi123' -p '$TOKEN' docker.io"
-                            sh "docker build -t ${path}:latest --tag yingyi123/${path}:${imageName} ."
-                            sh "docker push yingyi123/${path}:${imageName}"
-                        }
-                    }    
-                }
-            }
+            // stage('Package') {
+            //     when {
+            //         expression { env.GIT_BRANCH == 'origin/main' }
+            //     }
+            //     steps {
+            //         withCredentials([string(credentialsId: 'Dockerhub', variable: 'TOKEN')]) {
+            //             script {
+            //                 sh "cd ${path} && docker login -u 'yingyi123' -p '$TOKEN' docker.io"
+            //                 sh "docker build -t ${path}:latest --tag yingyi123/${path}:${imageName} ."
+            //                 sh "docker push yingyi123/${path}:${imageName}"
+            //             }
+            //         }    
+            //     }
+            // }
             
-            stage('Deploy') {
-                // when {
-                //     expression { params.DEPLOY }
-                // }
-                steps {
-                    sshagent(credentials: ['ssh-key']) {
-                        sh '''
-                            ssh -t -t doridori@34.106.187.98 -o StrictHostKeyChecking=no "cd /deployment &&
-                            docker compose stop &&
-                            docker compose rm -f &&
-                            docker compose pull &&
-                            docker compose up --build -d"
-                        '''
-                    }
-                }
-            }
+            // stage('Deploy') {
+            //     // when {
+            //     //     expression { params.DEPLOY }
+            //     // }
+            //     steps {
+            //         sshagent(credentials: ['ssh-key']) {
+            //             sh '''
+            //                 ssh -t -t doridori@34.106.187.98 -o StrictHostKeyChecking=no "cd /deployment &&
+            //                 docker compose stop &&
+            //                 docker compose rm -f &&
+            //                 docker compose pull &&
+            //                 docker compose up --build -d"
+            //             '''
+            //         }
+            //     }
+            // }
 
             stage('Clean up') {
                 steps {
