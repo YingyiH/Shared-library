@@ -100,14 +100,13 @@ def call(dockerRepoName, path, imageName) {
                         }
                     }
                 }
-            }
-            
-            // Reference of clean up: https://www.jenkins.io/doc/pipeline/tour/post/
-            post {
-                always {
-                    script {
-                        // Clean up Python virtual environment
-                        sh "rm -rf venv"
+                // Reference of clean up: https://www.jenkins.io/doc/pipeline/tour/post/
+                post {
+                    always {
+                        script {
+                            // Clean up Python virtual environment
+                            sh "rm -rf venv"
+                        }
                     }
                 }
             }
