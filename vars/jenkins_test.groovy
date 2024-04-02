@@ -70,13 +70,13 @@ def call(path, imageName) {
             //     }
             // }
 
-            stage('Clean up') {
-                steps {
-                    script {
-                        sh 'rm -rf venv'
-                    }
-                }
-            }
+            // stage('Clean up') {
+            //     steps {
+            //         script {
+            //             sh 'rm -rf venv'
+            //         }
+            //     }
+            // }
         }
     }
 }
