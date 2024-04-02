@@ -90,7 +90,8 @@ def call(dockerRepoName, path, imageName) {
                             // the 'deployment' directory.
                             dir('deployment'){
                                 sh "pwd"
-                                sh 'ssh -t -t doridori@34.106.187.98 -o StrictHostKeyChecking=no "docker compose stop && docker compose rm -f && docker compose pull && docker compose up --build -d"'
+                                // sh 'ssh -t -t doridori@34.106.187.98 -o StrictHostKeyChecking=no "docker compose stop && docker compose rm -f && docker compose pull && docker compose up --build -d"'
+                                sh 'ssh -t -t doridori@34.106.187.98 -o StrictHostKeyChecking=no "pwd"'
                             }
                             // sh 'ssh -t -t doridori@34.106.187.98 -o StrictHostKeyChecking=no "cd ./deployment && docker compose stop && docker compose rm -f && docker compose pull && docker compose up --build -d"'
                             // The -o option disables the prompt that asks for confirmation when connecting to a host 
