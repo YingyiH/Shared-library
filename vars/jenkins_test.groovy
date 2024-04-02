@@ -19,6 +19,8 @@ def call(path, imageName) {
                 steps {
                     script {
                         sh 'pwd'
+                        sh 'which python3'
+                        sh 'rm -rf venv'
                         // Python virtual environment set up
                         sh 'python3 -m venv venv'
                         sh 'source venv/bin/activate'
