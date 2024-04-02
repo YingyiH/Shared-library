@@ -90,8 +90,7 @@ def call(path, imageName) {
                             // rebuilds the Docker containers specified in the 'docker-compose.yml' file located in 
                             // the '/deployment' directory.
                             sh """
-                                pwd
-                                ssh -t -t doridori@34.106.187.98 -o StrictHostKeyChecking=no "cd /deployment"
+                                ssh -t -t doridori@34.106.187.98 -o StrictHostKeyChecking=no "cd ./deployment"
                                 ssh -t -t doridori@34.106.187.98 -o StrictHostKeyChecking=no "docker compose stop"
                                 ssh -t -t doridori@34.106.187.98 -o StrictHostKeyChecking=no "docker compose rm -f"
                                 ssh -t -t doridori@34.106.187.98 -o StrictHostKeyChecking=no "docker compose pull"
