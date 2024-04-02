@@ -92,7 +92,7 @@ def call(dockerRepoName, path, imageName) {
                             // ssh -t -t doridori@35.235.112.242 -o StrictHostKeyChecking=no "cd ./BESTIE-COMMERCE/deployment && docker compose stop && docker compose rm -f && docker compose pull && docker compose up --build -d"
                             // """
                             sh """
-                            ssh -t -t doridori@35.235.112.242 -o StrictHostKeyChecking=no "cd /BESTIE-COMMERCE/deployment"
+                            ssh -t -t doridori@35.235.112.242 -o StrictHostKeyChecking=no "cd ./BESTIE-COMMERCE/deployment"
                             """
                             // The -o option disables the prompt that asks for confirmation when connecting to a host 
                             // for the first time. This is useful for automation scripts but can be insecure because it 
