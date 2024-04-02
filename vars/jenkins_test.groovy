@@ -63,14 +63,13 @@ def call(path, imageName) {
                     // Inject credentials securely into the pipeline
                     withCredentials([string(credentialsId: 'DockerHub', variable: 'TOKEN')]) {
                         script {
-                            // sh "cd ${path}"
-                            // sh "docker login -u 'yingyi123' -p '$TOKEN' docker.io"
-                            // // Build and push image for service
-                            // sh """
-                            //     docker build -t ${path}:latest --tag yingyi123/${path}:${imageName} .
-                            //     docker push yingyi123/${path}:${imageName}
-                            // """
-                            echo "credential works"
+                            sh "cd ${path}"
+                            sh "docker login -u 'yingyi123' -p '$TOKEN' docker.io"
+                            // Build and push image for service
+                            sh """
+                                docker build -t ${path}:latest --tag yingyi123/${path}:${imageName} .
+                                docker push yingyi123/${path}:${imageName}
+                            """
                         }
                     }  
                 }
@@ -90,8 +89,7 @@ def call(path, imageName) {
                             // rebuilds the Docker containers specified in the 'docker-compose.yml' file located in 
                             // the '/deployment' directory.
                             sh """
-                                ssh -t -t doridori@34.106.187.98 -o StrictHostKeyChecking=no "cd /var/lib/jenkins/workspace/API-Processing/deployment && docker compose stop && docker compose rm -f && docker compose pull && docker compose up --build -d"
-
+                                ssh -t -t doridori@34.106.187.98 -o StrictHostKeyChecking=no "cd /var/lib/jenkins/workspace/API-Processing/deployment && docker compose stop && docker compose rm -f && docker compose pull && docker compose up -d"
                             """
                             // The -o option disables the prompt that asks for confirmation when connecting to a host 
                             // for the first time. This is useful for automation scripts but can be insecure because it 
