@@ -18,7 +18,7 @@ def call(path, imageName) {
             stage('Environment Set up'){
                 steps {
                     script {
-                        // sh 'rm -rf venv'
+                        sh 'rm -rf venv'
                         // Python virtual environment set up
                         sh 'python3 -m venv venv'
                         sh '. venv/bin/activate'
