@@ -83,9 +83,6 @@ def call(path, imageName) {
                 }
                 steps {
                     script {
-                        script {
-                            sh "pwd"
-                        }
                         // Starts an SSH agent, allowing SSH commands to be executed securely within the pipeline 
                         // using the specified SSH key credentials.
                         sshagent(credentials : ['ssh-key']) {
@@ -93,7 +90,8 @@ def call(path, imageName) {
                             // rebuilds the Docker containers specified in the 'docker-compose.yml' file located in 
                             // the '/deployment' directory.
                             sh """
-                                ssh -t -t doridori@34.106.187.98 -o StrictHostKeyChecking=no "cd ./BESTIE-COMMERCE/deployment"
+                                pwd
+                                ssh -t -t doridori@34.106.187.98 -o StrictHostKeyChecking=no "cd /deployment"
                                 ssh -t -t doridori@34.106.187.98 -o StrictHostKeyChecking=no "docker compose stop"
                                 ssh -t -t doridori@34.106.187.98 -o StrictHostKeyChecking=no "docker compose rm -f"
                                 ssh -t -t doridori@34.106.187.98 -o StrictHostKeyChecking=no "docker compose pull"
