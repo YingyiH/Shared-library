@@ -18,6 +18,7 @@ def call(path, imageName) {
                 steps {
                     script {
                         // Python virtual environment set up
+                        sh 'pwd'
                         sh 'python3 -m venv venv'
                         sh '. venv/bin/activate'
                         // Python package upgrade
