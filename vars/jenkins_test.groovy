@@ -4,9 +4,9 @@ def call(dockerRepoName, path, imageName) {
     pipeline {
         //Starts defining a Jenkins pipeline and sets it to run on any available agent
         agent any 
-        // environment {
-        //     PATH = "/var/lib/jenkins/.local/bin:$PATH"
-        // }
+        environment {
+            PATH = "/var/lib/jenkins/.local/bin:$PATH"
+        }
         // Add a boolean parameter to enable/disable the Delivery stage of the pipeline. 
         // This should go between the agent and stages keywords.
         parameters {
