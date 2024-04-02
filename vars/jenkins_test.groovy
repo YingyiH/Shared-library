@@ -37,7 +37,7 @@ def call(path, imageName) {
                         // Python lint installation
                         sh 'pip install pylint'
                         // Set up pylint minimum score
-                        sh 'pylint --fail-under=5'
+                        sh 'pylint --fail-under=5 ./${path}/*.py'
                     }
                 }
             }
