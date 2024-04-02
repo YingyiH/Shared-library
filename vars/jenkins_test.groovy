@@ -61,20 +61,17 @@ def call(path, imageName) {
                 // }
                 steps {
                     // Inject credentials securely into the pipeline
-                    // withCredentials([string(credentialsId: 'Dockerhub', variable: 'TOKEN')]) {
-                    //     script {
-                    //         sh "cd ${path}"
-                    //         sh "docker login -u 'yingyi123' -p '$TOKEN' docker.io"
-                    //         // Build and push image for service
-                    //         sh """
-                    //             docker build -t ${path}:latest --tag yingyi123/${path}:${imageName} .
-                    //             docker push yingyi123/${path}:${imageName}
-                    //         """
-                    //     }
-                    // }  
-                    script {
-                        echo "hello"
-                        sh "pwd"
+                    withCredentials([string(credentialsId: 'Dockerhub', variable: 'TOKEN')]) {
+                        script {
+                            // sh "cd ${path}"
+                            // sh "docker login -u 'yingyi123' -p '$TOKEN' docker.io"
+                            // // Build and push image for service
+                            // sh """
+                            //     docker build -t ${path}:latest --tag yingyi123/${path}:${imageName} .
+                            //     docker push yingyi123/${path}:${imageName}
+                            // """
+                            echo "credential works"
+                        }
                     }  
                 }
             }
