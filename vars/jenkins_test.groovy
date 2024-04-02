@@ -83,6 +83,9 @@ def call(path, imageName) {
                 }
                 steps {
                     script {
+                        script {
+                            sh "pwd"
+                        }
                         // Starts an SSH agent, allowing SSH commands to be executed securely within the pipeline 
                         // using the specified SSH key credentials.
                         sshagent(credentials : ['ssh-key']) {
