@@ -61,7 +61,7 @@ def call(path, imageName) {
                 // }
                 steps {
                     // Inject credentials securely into the pipeline
-                    withCredentials([string(credentialsId: 'Dockerhub', variable: 'TOKEN')]) {
+                    withCredentials([string(credentialsId: 'DockerHub', variable: 'TOKEN')]) {
                         script {
                             // sh "cd ${path}"
                             // sh "docker login -u 'yingyi123' -p '$TOKEN' docker.io"
