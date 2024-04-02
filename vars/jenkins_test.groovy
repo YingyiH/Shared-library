@@ -2,9 +2,9 @@ def call(path, imageName) {
     pipeline {
         agent any 
         
-        parameters {
-            booleanParam(defaultValue: false, description: 'Deploy the App', name: 'DEPLOY')
-        }
+        // parameters {
+        //     booleanParam(defaultValue: false, description: 'Deploy the App', name: 'DEPLOY')
+        // }
         
         stages {
             stage('Environment Set up') {
@@ -54,13 +54,13 @@ def call(path, imageName) {
             }
             
             stage('Deploy') {
-                when {
-                    expression { params.DEPLOY }
-                }
+                // when {
+                //     expression { params.DEPLOY }
+                // }
                 steps {
                     sshagent(credentials: ['ssh-key']) {
                         sh '''
-                            ssh -t -t yhe@34.106.187.98 -o StrictHostKeyChecking=no "cd /deployment &&
+                            ssh -t -t doridori@34.106.187.98 -o StrictHostKeyChecking=no "cd /deployment &&
                             docker compose stop &&
                             docker compose rm -f &&
                             docker compose pull &&
