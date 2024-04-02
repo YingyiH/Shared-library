@@ -23,8 +23,8 @@ def call(path, imageName) {
                         sh 'python3 -m venv venv'
                         sh '. venv/bin/activate'
                         // Python package upgrade
-                        sh 'pip install'
-                        sh 'pip install --upgrade flask'
+                        sh 'pip3 install --upgrade pip'
+                        sh 'pip3 install --upgrade flask'
                     }
                 }
             }
