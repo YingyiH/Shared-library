@@ -4,9 +4,9 @@ def call(dockerRepoName, path, imageName) {
     pipeline {
         //Starts defining a Jenkins pipeline and sets it to run on any available agent
         agent any 
-        environment {
-            PATH = "/var/lib/jenkins/.local/bin:$PATH"
-        }
+        // environment {
+        //     PATH = "/var/lib/jenkins/.local/bin:$PATH"
+        // }
         // Add a boolean parameter to enable/disable the Delivery stage of the pipeline. 
         // This should go between the agent and stages keywords.
         parameters {
@@ -88,6 +88,7 @@ def call(dockerRepoName, path, imageName) {
                             // Executes a series of Docker commands on a remote server via SSH. It pulls, and then 
                             // rebuilds the Docker containers specified in the 'docker-compose.yml' file located in 
                             // the '/deployment' directory.
+                            sh "pwd"
                             sh """
                                 ssh -t -t doridori@34.106.187.98 -o StrictHostKeyChecking=no "cd ./deployment && docker compose stop && docker compose rm -f && docker compose pull && docker compose up -d"
                             """
