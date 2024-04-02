@@ -57,7 +57,6 @@ def call(path, imageName) {
             
             stage('Package') {
                 when {
-                    
                     expression { env.GIT_BRANCH == 'origin/main' }
                 }
                 steps {
@@ -69,7 +68,7 @@ def call(path, imageName) {
                             // Build and push image for service
                             sh """
                                 docker build -t ${path}:latest --tag yingyi123/${path}:${imageName} .
-                                docker push yingyi/${path}:${imageName}
+                                docker push yingyi123/${path}:${imageName}
                             """
                         }
                     }    
