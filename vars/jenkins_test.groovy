@@ -55,9 +55,9 @@ def call(dockerRepoName, path, imageName) {
             }
             
             stage('Package') {
-                // when {
-                //     expression {env.GIT_BRANCH == 'origin/main'}
-                // }
+                when {
+                    expression {env.GIT_BRANCH == 'origin/main'}
+                }
                 steps {
                     // Inject credentials securely into the pipeline
                     withCredentials([string(credentialsId: 'DockerHub', variable: 'TOKEN')]) {
@@ -88,7 +88,7 @@ def call(dockerRepoName, path, imageName) {
                             // rebuilds the Docker containers specified in the 'docker-compose.yml' file located in 
                             // the 'deployment' directory.
                             sh """
-                            ssh -t -t doridori@35.235.112.242 -o StrictHostKeyChecking=no "cd ./BESTIE-Commerce-API/deployment && docker pull yingyi123/${dockerRepoName}:${imageName} && docker compose up yingyi123/${dockerRepoName}:${imageName} -d"
+                                ssh -t -t doridori@35.235.112.242 -o StrictHostKeyChecking=no "cd ./BESTIE-Commerce-API/deployment && docker pull yingyi123/${dockerRepoName}:${imageName} && docker compose up -d"
                             """
                             // The -o option disables the prompt that asks for confirmation when connecting to a host 
                             // for the first time. This is useful for automation scripts but can be insecure because it 
