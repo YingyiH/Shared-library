@@ -81,7 +81,7 @@ def call(dockerRepoName, path, imageName) {
                 steps {
                     sshagent(credentials : ['ssh-key']) {
                         // https://stackoverflow.com/questions/18522647/run-ssh-and-immediately-execute-command - Run commands using quotes
-                        sh 'ssh -t -t doridori@35.235.112.242 -o StrictHostKeyChecking=no "cd ./kafka/deployment && docker compose stop && docker compose rm -f && docker compose pull && docker compose up --build -d"'
+                        sh 'ssh -t -t doridori@35.235.112.242 -o StrictHostKeyChecking=no "cd ./BESTIE-Commerce-API/deployment && docker compose stop && docker compose rm -f && docker compose pull && docker compose up --build -d"'
                     }
                 }
                 post {
